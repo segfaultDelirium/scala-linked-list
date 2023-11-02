@@ -40,17 +40,17 @@ class MySuite extends munit.FunSuite {
     assertEquals(res, expected)
   }
 
-  test("LList.len works when list is empty") {
+  test("Llist.size works when list is empty") {
     val list = LList();
     val expected = 0;
-    val res = list.len
+    val res = list.size
     assertEquals(res, expected)
   }
 
-  test("LList.len works when list is not empty") {
+  test("Llist.size works when list is not empty") {
     val list = LList().pushLeft(1).pushLeft(2).pushLeft(3);
     val expected = 3;
-    val res = list.len
+    val res = list.size
     assertEquals(res, expected)
   }
 
@@ -93,6 +93,40 @@ class MySuite extends munit.FunSuite {
     val res = list.reverse;
     val expected = LList().pushLeft(3).pushLeft(2).pushLeft(1);
     assertEquals(res, expected);
+  }
+
+  test("no test") {
+    val list: Iterable[Int] = List[Int]();
+    // list.iterator
+    // list.toIterable
+    assert(true)
+  }
+
+  test("List to iterable") {
+    // val list: Iterable[Int] = List[Int]();
+    val iterable = (123 :: LList()).pushLeft(99).pushLeft(3).toIterable;
+    val expected = "399123";
+    val res = iterable.mkString;
+    assertEquals(res, expected)
+  }
+
+  test("List can contain different types") {
+    val list = LList().pushLeft("hello").pushLeft(123).pushLeft(66.32)
+    println(list)
+    assert(true)
+  }
+
+  test("list can be created using variable number of args") {
+    val list = LList(1, 2, 3);
+    val expected = LList().pushLeft(3).pushLeft(2).pushLeft(1);
+    assertEquals(list, expected)
+  }
+
+  test("get element at index") {
+    val list = LList(1, 2, 3);
+    val expected = 3;
+    val res = list(2);
+    assertEquals(res, expected)
   }
 
 }
