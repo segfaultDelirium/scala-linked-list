@@ -1,10 +1,5 @@
 import scala.collection.immutable.List
-case class LList(val head: Option[Node] = None) {
-  // val head: Node
-
-  // def new(): LList{
-  //   new LList()
-  // }
+case class LList[T](val head: Option[Node[T]] = None) {
 
   override def toString(): String = {
     val listContent = this.head match {
@@ -14,18 +9,18 @@ case class LList(val head: Option[Node] = None) {
     s"LList: [$listContent]"
   }
 
-  def pushLeft(value: Int): LList = {
+  def pushLeft(value: T): LList[T] = {
     val newHead = Node(value, this.head)
 
-    val newList = LList(Some(newHead))
+    val newList =LList[T](Some(newHead))
 
     newList
   }
 
-  def headTail: (Option[Int], LList) = {
+  def headTail: (Option[T],LList[T]) = {
     this.head match {
-      case Some(head_node) => (Some(head_node.current), LList(head_node.next))
-      case None            => (None, LList())
+      case Some(head_node) => (Some(head_node.current),LList[T](head_node.next))
+      case None            => (None,LList[T]())
     }
   }
 
@@ -34,7 +29,7 @@ case class LList(val head: Option[Node] = None) {
   }
 
   def len: Int = {
-    def lenRec(list: LList, acc: Int): Int = {
+    def lenRec(list:LList[T], acc: Int): Int = {
       if list.isEmpty then{
         return acc
       }
@@ -44,8 +39,8 @@ case class LList(val head: Option[Node] = None) {
     lenRec(this, 0)
   }
 
-  def toList: List[Int] = {
-    def toListRec(list: LList, acc: List[Int]): List[Int] = {
+  def toList: List[T] = {
+    def toListRec(list:LList[T], acc: List[T]): List[T] = {
       if list.isEmpty then{
         return acc
       }
@@ -56,14 +51,14 @@ case class LList(val head: Option[Node] = None) {
     toListRec(this, List())
   }
   
-  def ::(value: Int): LList = {
+  def ::(value: T):LList[T] = {
     val newHead = Node(value, this.head)
-    val newList = LList(Some(newHead))
+    val newList =LList[T](Some(newHead))
     newList
   }
 
-  def reverse: LList = {
-    def reverseRec(list: LList, acc: LList): LList = {
+  def reverse:LList[T] = {
+    def reverseRec(list:LList[T], acc:LList[T]):LList[T] = {
       if list.isEmpty then {
         return acc;
       }
@@ -72,16 +67,12 @@ case class LList(val head: Option[Node] = None) {
       reverseRec(tail, newAcc)
     }
 
-    reverseRec(this, LList())
+    reverseRec(this,LList[T]())
   }
 
 }
 
-case class Node(val current: Int, val next: Option[Node]) {
-  // val current: Int
-  // val next: Node
-
-  // def apply()
+case class Node[T](val current: T, val next: Option[Node[T]]) {
 
   override def toString(): String = {
     s"${this.current}" + (this.next match {

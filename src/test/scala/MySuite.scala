@@ -69,9 +69,16 @@ class MySuite extends munit.FunSuite {
   }
 
   test("element :: list works as pushLeft") {
-    val list = LList();
+    val list = LList[Int]();
     val res = 123 :: list;
     val expected = LList().pushLeft(123);
+    assertEquals(res, expected)
+  }
+
+  test("element :: list works as pushLeft on String") {
+    val list = LList[String]();
+    val res = "123" :: list;
+    val expected = LList().pushLeft("123");
     assertEquals(res, expected)
   }
 
